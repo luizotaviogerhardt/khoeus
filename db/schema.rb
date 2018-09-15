@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20171109204545) do
     t.datetime "updated_at",                 null: false
     t.string   "document_file_file_name"
     t.string   "document_file_content_type"
-    t.integer  "document_file_file_size"
+    t.bigint   "document_file_file_size"
     t.datetime "document_file_updated_at"
     t.index ["grade_category_id"], name: "index_board_items_on_grade_category_id"
     t.index ["section_id"], name: "index_board_items_on_section_id"
@@ -129,7 +129,7 @@ ActiveRecord::Schema.define(version: 20171109204545) do
     t.text     "content"
     t.string   "assignment_file_file_name"
     t.string   "assignment_file_content_type"
-    t.integer  "assignment_file_file_size"
+    t.bigint   "assignment_file_file_size"
     t.datetime "assignment_file_updated_at"
     t.integer  "assignment_id"
     t.integer  "user_id"
@@ -256,7 +256,7 @@ ActiveRecord::Schema.define(version: 20171109204545) do
     t.datetime "updated_at",         null: false
     t.string   "photo_file_name"
     t.string   "photo_content_type"
-    t.integer  "photo_file_size"
+    t.bigint   "photo_file_size"
     t.datetime "photo_updated_at"
   end
 

@@ -11,6 +11,7 @@ gem 'turbolinks', '~> 5'
 gem 'paperclip'
 gem 'bcrypt', '~> 3.1.11'
 gem 'aws-sdk', '~> 2.3'
+gem 'tzinfo-data'
 
 gem 'bootstrap-sass', '3.3.6'
 gem 'rack', '~> 2.0'
@@ -43,8 +44,8 @@ group :development do
   gem 'spring-watcher-listen', '2.0.0'
 end
 
-group :production do
-  gem 'pg', '0.18.4'
-end
+#group :production do
+#  gem 'pg', '0.18.4'
+#end
 
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
