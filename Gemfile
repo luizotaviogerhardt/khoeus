@@ -7,11 +7,12 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
-#gem 'jbuilder', '~> 2.5'
+gem 'jbuilder', '~> 2.5'
 gem 'paperclip'
 gem 'bcrypt', '~> 3.1.11'
-gem 'aws-sdk', '~> 2.3'
+gem 'aws-sdk'
 gem 'tzinfo-data'
+gem 'aws-sdk-core'
 
 gem 'bootstrap-sass', '3.3.6'
 gem 'rack', '~> 2.0'
@@ -27,6 +28,8 @@ gem 'rails-controller-testing'
 gem 'nested_form_fields'
 gem 'codemirror-rails'
 gem 'bootstrap-popover-rails'
+
+
 
 
 group :development, :test do

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171109204545) do
+ActiveRecord::Schema.define(version: 20181209034319) do
 
   create_table "activities", force: :cascade do |t|
     t.float    "grade"
@@ -40,6 +40,8 @@ ActiveRecord::Schema.define(version: 20171109204545) do
     t.string   "document_file_content_type"
     t.bigint   "document_file_file_size"
     t.datetime "document_file_updated_at"
+    t.         "outputs"
+    t.         "inputs"
     t.index ["grade_category_id"], name: "index_board_items_on_grade_category_id"
     t.index ["section_id"], name: "index_board_items_on_section_id"
   end

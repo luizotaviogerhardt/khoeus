@@ -82,7 +82,11 @@
                           <%= fa_icon 'font' %>
                           <div class="row">
                             <div class="col-xs-12 col-md-12">
-                              <%= assignment_form.select :code_language, options_for_select([['C','text/x-csrc']]), {}, class: 'form-field' %>
+                              <%= assignment_form.select :code_language, options_for_select([
+                                ['C','text/x-csrc'],
+                                ['Python','text/x-csrc'],
+                                ['Python3','text/x-csrc']
+                                ]), {}, class: 'form-field' %>
                             </div>
                           </div>
                         </div>
@@ -123,11 +127,13 @@
                       </div>
                   <% end %>
 
+
+
                   <% if @assignment.assignment_type == 'code' %>
                       <div class="text-right">
                         <%= image_tag 'loading', class: 'loading hidden' %>
                         <%= link_to 'Run', '#', class: 'btn run-code', name: 'run' %>
-                        <%= assignment_form.submit 'Submit Assignment', class: 'btn', name: 'submit' %>
+                        <%= assignment_form.submit 'Submit Assignment', class: 'btn submit-assig', name: 'submit' %>
                       </div>
                       <div class="run-result hidden">
                         <code></code>

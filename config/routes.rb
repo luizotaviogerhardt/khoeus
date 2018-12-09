@@ -49,5 +49,6 @@ Rails.application.routes.draw do
   get    '/subscribe/:id', to: 'subscriptions#new', as: :subscribe
   post   '/subscribe/:id', to: 'subscriptions#create'
   post '/compile', to: 'assignments#compile', as: :compile
+  post '/autoevaluate', to: 'assignments#autoevaluate', as: :autoevaluate
 
 end

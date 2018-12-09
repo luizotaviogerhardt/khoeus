@@ -74,6 +74,25 @@
           <div class="text-right">
             <%= submission_form.submit 'Evaluate', class: 'btn' %>
           </div>
+          <div style="margin-top: 5px">
+            <div id="lang-input" class="dropdown">
+             <select>
+              <option value="C">C</option>
+              <option value="Python">Python</option>
+              <option value="Python3">Python3</option>
+            </select>
+            </div>
+            <div>
+              <input type="file" id="inputsUpload" name="inputsUpload" multiple>Inputs</input>
+            </div>
+            <div>
+              <input type="file" id="ooutsUpload" name="ooutsUpload" multiple>Desired Outputs</input>
+            </div>
+        
+            <div>
+              <%= link_to 'Auto Evaluate', '#', class: 'btn submit', name: 'submit' %>
+            </div>
+          </div>
       <% end %>
   <% else %>
       <p class="info">This student hasn't submitted this assignment :(</p>

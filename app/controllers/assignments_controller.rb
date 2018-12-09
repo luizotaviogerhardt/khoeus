@@ -1,4 +1,8 @@
 require 'hacker_earth'
+require 'net/http'
+require 'uri'
+require 'json'
+
 
 class AssignmentsController < ApplicationController
   include ClassroomsHelper
@@ -56,7 +60,11 @@ class AssignmentsController < ApplicationController
 
   def submit
     if @assignment.assignment_type == "code"
-      params = {:user_id => current_user.id, :assignment_id => @assignment.id, :language => assignment_params[:code_language]}
+      params = {
+        :user_id => current_user.id,
+        :assignment_id => @assignment.id,
+        :language => assignment_params[:code_language]
+      }
       code = ManageCodeSubmissionService.new.create(params)
       code_lines = assignment_params['code'].split(/\r\n/)
       code_lines.each_with_index do |line, index|
@@ -107,6 +115,13 @@ class AssignmentsController < ApplicationController
       end
     end
     redirect_to @classroom, notice: 'Assignment was successfully reviewed.'
+  end
+
+  def autoevaluate
+    puts 'oiiiiiiiiiii'
+    logger.debug "FAla ae galeraaaa"
+    # submission = student_submission(@student)
+    # ManageSubmissionService.new(submission).update_grade(submission_params[:grade])
   end
 
 
