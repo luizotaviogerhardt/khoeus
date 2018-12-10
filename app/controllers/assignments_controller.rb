@@ -8,10 +8,10 @@ class AssignmentsController < ApplicationController
   include ClassroomsHelper
   include AssignmentsHelper
 
-  before_action :set_assignment, only: [:edit, :update, :destroy, :submit, :evaluation, :evaluate]
-  before_action :set_classroom, except: [:compile]
+  before_action :set_assignment, only: [:edit, :update, :destroy, :submit, :evaluation, :evaluate, :autoevaluate]
+  before_action :set_classroom, except: [:compile, :autoevaluate]
   before_action :set_section, only: [:create]
-  before_action :set_student, only: [:evaluate, :evaluation]
+  before_action :set_student, only: [:evaluate, :evaluation, :autoevaluate]
 
   load_and_authorize_resource :assignment
 
