@@ -44,62 +44,65 @@ $(document).ready(function(){
 
         });
 
-        $(document).on('click', '.submit-assig', function(e){
-            e.preventDefault()
-            console.log("mandei hein")
+        // $(document).on('click', '.submit-assig', function(e){
+        //     // e.preventDefault()
+        //     console.log("mandei hein")
 
-            id = window.location.href.split('assignments/')[1]
-            var code = editor.getValue();
-            var lang = $("#assignment_code_language :selected").text()
+        //     id = window.location.href.split('assignments/')[1]
+        //     var code = editor.getValue();
+        //     var lang = $("#assignment_code_language :selected").text()
 
-            console.log(id, code, lang)
+        //     console.log(id, code, lang)
 
+        //     $.ajax({
+        //       type: 'POST',
+        //       contentType: 'application/json',
+        //       dataType: 'json',
+        //       url: "http://localhost:5000/autoeval",
+        //       async: true,
+        //       cache: false,
+        //       data:JSON.stringify( 
+        //         {
+        //             'user_id': 2,
+        //             'id': id,
+        //             'language': lang,
+        //             'code': code
+        //         }),
+        //       success: function(response){
+        //         grade = response['grade']
+        //         console.log(grade)
 
-            $.ajax({
-              type: 'POST',
-              contentType: 'application/json',
-              dataType: 'json',
-              url: "http://localhost:5000/autoeval",
-              async: true,
-              cache: false,
-              data:JSON.stringify( 
-                {
-                    'id': id,
-                    'language': lang,
-                    'code': code
-                }),
-              success: function(response){
-                var grade = response['grade']
-                console.log(grade)
-
-                $.ajax({
-                  type: 'POST',
-                  contentType: 'application/json',
-                  dataType: 'json',
-                  url: "http://localhost:3000/autoevaluate",
-                  async: true,
-                  cache: false,
-                  data:JSON.stringify( 
-                    {
-                        'grade': grade
-                    }),
-                  success: function(response){
-                    alert("Submission Successful!")
-                  },
-                   error: function(jqXHR, textStatus, errorThrown){
-                     alert(textStatus, errorThrown);
-                  }
-                });
+        //         window.location = window.location.href.split('assignments/')[0]
+        //         return true;
+        //       },
+        //        error: function(jqXHR, textStatus, errorThrown){
+        //          alert(textStatus, errorThrown);
+        //       }
+        //     });
+        //     // "/home/luizotavio/Desktop/projeto-graduacao/khoeus-app/db"
 
 
-                //window.location = window.location.href.split('assignments/')[0]
-                //return true;
-              },
-               error: function(jqXHR, textStatus, errorThrown){
-                 alert(textStatus, errorThrown);
-              }
-            });
-        })
+        //      // $.ajax({
+        //      //      type: 'POST',
+        //      //      contentType: 'application/json',
+        //      //      dataType: 'json',
+        //      //      url: "/autoevaluate",
+        //      //      data:JSON.stringify( 
+        //      //        {
+        //      //            'grade': grade
+        //      //        }),
+        //      //      success: function(response){
+        //      //        alert("Submission Successful!")
+        //      //      },
+        //      //       error: function(jqXHR, textStatus, errorThrown){
+        //      //         alert(textStatus, errorThrown);
+        //      //      }
+        //      //    });
+
+
+
+
+        // })
 
         $(document).on('click', '.run-code', function(e){
             e.preventDefault();
@@ -396,41 +399,41 @@ $(document).ready(function(){
 
 
 
- $(document).on('click', '.assignment-submit', function(e){
-            e.preventDefault();
-            console.log("entrou")
-            console.log(JSON.stringify(request_input))
-            console.log(JSON.stringify(request_oouts))
+ // $(document).on('click', '.assignment-submit', function(e){
+ //            //e.preventDefault();
+ //            console.log("entrou")
+ //            console.log(JSON.stringify(request_input))
+ //            console.log(JSON.stringify(request_oouts))
 
-            id = window.location.href.split('assignments/')[1].split('/edit')[0]
+ //            id = window.location.href.split('assignments/')[1].split('/edit')[0]
 
-            console.log(id, request_input, request_oouts)
+ //            console.log(id, request_input, request_oouts)
 
 
-            $.ajax({
-              type: 'POST',
-              contentType: 'application/json',
-              dataType: 'json',
-              url: "http://localhost:5000/inouts",
-              async: true,
-              cache: false,
-              data:JSON.stringify( 
-                {
-                    'id': id,
-                    'inputs': request_input,
-                    'o_outs': request_oouts
-                }),
-              success: function(response){
-                alert("Sucess")
-                window.location = window.location.href.split('assignments/')[0]
-                return true;
-              },
-               error: function(jqXHR, textStatus, errorThrown){
-                 alert(textStatus, errorThrown);
-              }
-            });
+ //            $.ajax({
+ //              type: 'POST',
+ //              contentType: 'application/json',
+ //              dataType: 'json',
+ //              url: "http://localhost:5000/inouts",
+ //              async: true,
+ //              cache: false,
+ //              data:JSON.stringify( 
+ //                {
+ //                    'id': id,
+ //                    'inputs': request_input,
+ //                    'o_outs': request_oouts
+ //                }),
+ //              success: function(response){
+ //                alert("Sucess")
+ //                window.location = window.location.href.split('assignments/')[0]
+ //                return true;
+ //              },
+ //               error: function(jqXHR, textStatus, errorThrown){
+ //                 alert(textStatus, errorThrown);
+ //              }
+ //            });
 
-    })
+ //    })
 
 
 });
