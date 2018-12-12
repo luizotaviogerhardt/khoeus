@@ -130,6 +130,14 @@
 
 
                   <% if @assignment.assignment_type == 'code' %>
+                      <div class="text-left">
+                        <label>Inputs</label>
+                        <textarea id="input-textarea"></textarea>
+                      </div>
+                      <div class="text-left">
+                        <label>Output</label>
+                        <textarea id="output-textarea"></textarea>
+                      </div>
                       <div class="text-right">
                         <%= image_tag 'loading', class: 'loading hidden' %>
                         <%= link_to 'Run', '#', class: 'btn run-code', name: 'run' %>
@@ -142,6 +150,7 @@
                       <div class="text-right">
                         <%= assignment_form.submit 'Submit Assignment', class: 'btn' %>
                       </div>
+
                   <% end %>
               <% end %>
           <% else %>

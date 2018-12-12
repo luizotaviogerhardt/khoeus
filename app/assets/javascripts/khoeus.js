@@ -30,85 +30,62 @@ $(document).ready(function(){
     });
 
     if($("#assignment_code").length) {
-        var editor = CodeMirror.fromTextArea(document.getElementById('assignment_code'), {
-            lineNumbers: true,
-            matchBrackets: true,
-            theme: "seti",
-            mode: "text/x-csrc"
-        });
+
+
+         var editor = CodeMirror.fromTextArea(document.getElementById('assignment_code'), {
+                lineNumbers: true,
+                matchBrackets: true,
+                theme: "seti",
+                mode: "text/x-csrc"
+            });
+
+
         var mac = CodeMirror.keyMap.default == CodeMirror.keyMap.macDefault;
         CodeMirror.keyMap.default[(mac ? "Cmd" : "Ctrl") + "-Space"] = "autocomplete";
-
         $(document).on('change','#assignment_code_language', function(){
             editor.setOption("mode", $("#assignment_code_language").val());
 
         });
 
-        // $(document).on('click', '.submit-assig', function(e){
-        //     // e.preventDefault()
-        //     console.log("mandei hein")
 
-        //     id = window.location.href.split('assignments/')[1]
-        //     var code = editor.getValue();
-        //     var lang = $("#assignment_code_language :selected").text()
+         
 
-        //     console.log(id, code, lang)
+        $(document).on('click', '.submit-assig', function(e){
+            //e.preventDefault()
+            console.log("mandei hein")
 
-        //     $.ajax({
-        //       type: 'POST',
-        //       contentType: 'application/json',
-        //       dataType: 'json',
-        //       url: "http://localhost:5000/autoeval",
-        //       async: true,
-        //       cache: false,
-        //       data:JSON.stringify( 
-        //         {
-        //             'user_id': 2,
-        //             'id': id,
-        //             'language': lang,
-        //             'code': code
-        //         }),
-        //       success: function(response){
-        //         grade = response['grade']
-        //         console.log(grade)
+            id = window.location.href.split('assignments/')[1]
+            var code = editor.getValue();
+            var lang = $("#assignment_code_language :selected").text()
+            var user_id = document.getElementById("edituser").href.split("/users/")[1].split("/edit")[0]
 
-        //         window.location = window.location.href.split('assignments/')[0]
-        //         return true;
-        //       },
-        //        error: function(jqXHR, textStatus, errorThrown){
-        //          alert(textStatus, errorThrown);
-        //       }
-        //     });
-        //     // "/home/luizotavio/Desktop/projeto-graduacao/khoeus-app/db"
+            console.log(id, code, lang)
+
+            $.ajax({
+              type: 'POST',
+              contentType: 'application/json',
+              dataType: 'json',
+              url: "http://localhost:5000/autoeval",
+              async: false,
+              cache: false,
+              data:JSON.stringify( 
+                {
+                    'user_id': user_id,
+                    'id': id,
+                    'language': lang,
+                    'code': code
+                })
+            });
 
 
-        //      // $.ajax({
-        //      //      type: 'POST',
-        //      //      contentType: 'application/json',
-        //      //      dataType: 'json',
-        //      //      url: "/autoevaluate",
-        //      //      data:JSON.stringify( 
-        //      //        {
-        //      //            'grade': grade
-        //      //        }),
-        //      //      success: function(response){
-        //      //        alert("Submission Successful!")
-        //      //      },
-        //      //       error: function(jqXHR, textStatus, errorThrown){
-        //      //         alert(textStatus, errorThrown);
-        //      //      }
-        //      //    });
-
-
-
-
-        // })
+        })
 
         $(document).on('click', '.run-code', function(e){
             e.preventDefault();
             console.log("oi")
             var code = editor.getValue();
             var lang = $("#assignment_code_language :selected").text()
+            var input = $("#input-textarea").val()
 
 
             $.ajax({
@@ -120,41 +97,19 @@ $(document).ready(function(){
               cache: false,
               data:JSON.stringify( 
                 {
+                    'input': input,
                     'language': lang,
                     'code': code,
                 }),
               success: function(response){
                 console.log(response['output'])
-                alert(response['output']);
+                //alert(response['output']);
+                $("#output-textarea").val(response['output'])
               },
                error: function(jqXHR, textStatus, errorThrown){
                  alert(textStatus, errorThrown);
               }
             });
-
-        //     $(".loading").toggleClass('hidden');
-        //     $(".run-result").toggleClass('hidden');
-        //     $.ajax({
-        //         type: "POST",
-        //         url: "/compile",
-        //         dataType: 'json',
-        //         data: {
-        //             code: editor.getValue(),
-        //         },
-        //         success: function(data)
-        //         {
-        //             $(".loading").toggleClass('hidden');
-        //             if(data.result.compile_status == "OK"){
-        //                 if(data.result.run_status.stderr !== ""){
-        //                     $(".run-result code").html(data.result.run_status.stderr.replace(/[\n\r]/g, '<br>'))
-        //                 }
-        //                 $(".run-result code").html(data.result.run_status.output_html.replace(/[\n\r]/g, '<br>'))
-        //             } else {
-        //                 $(".run-result code").html(data.result.compile_status.replace(/[\n\r]/g, '<br>'))
-        //             }
-
-        //         }
-        //     });
         });
     }
 
@@ -180,6 +135,27 @@ $(document).ready(function(){
                 $("#textarea-" + line_id).val($("#code_submission_code_line_"+ line_id +"_feedback").val());
             });
         });
+
+        var url = window.location.href.split('assignments/')[1].split('/evaluate/')
+        var id = url[0]
+        var user_id = url[1]
+
+        $.ajax({
+              type: 'GET',
+              contentType: 'application/json',
+              dataType: 'json',
+              url: "http://localhost:5000/grade/"+id+"/"+user_id,
+              async: true,
+              cache: false,
+              success: function(response){
+                console.log(response['grade'])
+                alert('Nota Sugerida pela correcao automatica: ' + response['grade']);
+                document.getElementById("code_submission_grade").value = response['grade']
+              },
+               error: function(response){
+                 alert(response.status);
+              }
+            });
 
         var request_input = []
         var request_oouts = []
@@ -308,35 +284,6 @@ $(document).ready(function(){
                  alert(textStatus, errorThrown);
               }
             });
-
-            // $.ajax({
-            //    url: 'localhost:5000/submit',
-            //    type: 'POST',
-            //    dataType: 'json',
-            //    data: {
-            //         code: code,
-            //     },
-            //    success: function(response, textStatus, jqXHR) {
-            //      alert("Yay!");
-            //    },
-            //    error: function(jqXHR, textStatus, errorThrown){
-            //      alert(textStatus, errorThrown);
-            //   }
-            // });
-
-            // $.ajax({
-            //     type: "POST",
-            //     url: "/submit",
-            //     dataType: 'json',
-            //     data: {
-            //         code: editor.getValue(),
-            //     },
-            //     success: function(data)
-            //     {
-            //         console.log(data.result)
-
-            //     }
-            // });
         });
 
     }
@@ -399,41 +346,37 @@ $(document).ready(function(){
 
 
 
- // $(document).on('click', '.assignment-submit', function(e){
- //            //e.preventDefault();
- //            console.log("entrou")
- //            console.log(JSON.stringify(request_input))
- //            console.log(JSON.stringify(request_oouts))
+ $(document).on('click', '.assignment-submit', function(e){
+            //e.preventDefault();
+            console.log("entrou")
+            console.log(JSON.stringify(request_input))
+            console.log(JSON.stringify(request_oouts))
 
- //            id = window.location.href.split('assignments/')[1].split('/edit')[0]
+            id = window.location.href.split('assignments/')[1].split('/edit')[0]
 
- //            console.log(id, request_input, request_oouts)
+            if (id.substring(0,3) == "new"){
+                id = "new"
+            }
+
+            console.log(id, request_input, request_oouts)
 
 
- //            $.ajax({
- //              type: 'POST',
- //              contentType: 'application/json',
- //              dataType: 'json',
- //              url: "http://localhost:5000/inouts",
- //              async: true,
- //              cache: false,
- //              data:JSON.stringify( 
- //                {
- //                    'id': id,
- //                    'inputs': request_input,
- //                    'o_outs': request_oouts
- //                }),
- //              success: function(response){
- //                alert("Sucess")
- //                window.location = window.location.href.split('assignments/')[0]
- //                return true;
- //              },
- //               error: function(jqXHR, textStatus, errorThrown){
- //                 alert(textStatus, errorThrown);
- //              }
- //            });
+            $.ajax({
+              type: 'POST',
+              contentType: 'application/json',
+              dataType: 'json',
+              url: "http://localhost:5000/inouts",
+              async: false,
+              cache: false,
+              data:JSON.stringify(
+                {
+                    'id': id,
+                    'inputs': request_input,
+                    'o_outs': request_oouts
+                })
+            });
 
- //    })
+    })
 
 
 });

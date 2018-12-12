@@ -17,6 +17,9 @@ RUN bundle lock
 RUN bundle config build.nokogiri --use-system-libraries
 RUN bundle install
 
+VOLUME DbVolume:/db
+
+COPY /db/development.sqlite3 /DbVolume:/db/
 
 COPY . /usr/app
 

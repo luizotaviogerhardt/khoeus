@@ -78,26 +78,26 @@
       <div class="form-fields ">
         <%= fa_icon 'font' %>
         <div class="row">
-          <div class="col-xs-12 col-md-12">
+          <div id="assignment_type" class="col-xs-12 col-md-12">
             <%= f.select :assignment_type, options_for_select([['Text', 'text'], ['File', 'file'], ['Code', 'code']]), {}, class: 'form-field' %>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="form-group">
-      <%= f.label :inputs %>
-      <div class="form-fields ">
-        <%= fa_icon 'font' %>
-        <div class="row">
-          <div class="col-xs-12 col-md-12">
-            <%= f.file_field :attachment, :multiple => true, id:"assignment-inputs" %>
+      <div id="input-field" style="visibility:hidden" class="form-group">
+        <%= f.label :inputs %>
+        <div class="form-fields ">
+          <%= fa_icon 'font' %>
+          <div class="row">
+            <div class="col-xs-12 col-md-12">
+              <%= f.file_field :attachment, :multiple => true, id:"assignment-inputs" %>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="form-group">
+    <div id="output-field" style="visibility:hidden" class="form-group">
       <%= f.label :outputs %>
       <div class="form-fields ">
         <%= fa_icon 'font' %>
@@ -108,6 +108,19 @@
         </div>
       </div>
     </div>
+
+    <script type="text/javascript">
+      $(document).on('change', '#assignment_type', function(){
+      if($("#assignment_type :selected").val() == 'code') {
+        document.getElementById("input-field").style.visibility = "visible"
+        document.getElementById("output-field").style.visibility = "visible"
+      }
+      else {
+        document.getElementById("input-field").style.visibility = "hidden"
+        document.getElementById("output-field").style.visibility = "hidden"
+      }
+    });
+    </script>
 
     <div class="text-right">
       <%= f.submit class: 'btn assignment-submit' %>

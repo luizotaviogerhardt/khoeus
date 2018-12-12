@@ -21,5 +21,6 @@
 //= require codemirror/addons/edit/matchbrackets
 //= require codemirror/addons/hint/show-hint
 //= require codemirror/addons/hint/javascript-hint
+//= require codemirror/addons/display/autorefresh
 //= require khoeus
 //= require_tree .
